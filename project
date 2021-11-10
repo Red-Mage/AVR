@@ -14,54 +14,66 @@
  Directory Structure:
  AVR\
      _temp\
-         ansible\
+         ansible\    // static and generated ansible configs combined during scenario deployment
+         docker\
+         packer\
+         current_environment.json
+         current_scenario.json
      build\
          configs\
-             docker\
-             packer\
-                 http\
-                 templates\
              images.json
              software.json
              templates.json
-         scripts\
-         range_template.json
+         docker\
+         packer\
+             http\
+             templates\
+         virtual_machines\
      deploy\
-         configs\
-             ansible\
-                 inventories\
-                     production\
-                         hosts
-                         group_vars\
-                         host_vars\
-                     staging\
-                         hosts
-                         group_vars\
-                         host_vars\
-                 library\
+          ansible\    // static and template ansible configs
+             inventories\
+                 production\
+                     hosts
+                     group_vars\
+                     host_vars\
+                 staging\
+                     hosts
+                     group_vars\
+                     host_vars\
+             library\
+                 module_utils\
+                 filter_plugins\
+             roles\
+                 common\
+                     tasks\
+                     handlers\
+                     templates\
+                     files\
+                     vars\
+                     defaults\
+                     meta\
+                     library\
                      module_utils\
-                     filter_plugins\
-                 roles\
-                     common\
-                         tasks\
-                         handlers\
-                         templates\
-                         files\
-                         vars\
-                         defaults\
-                         meta\
-                         library\
-                         module_utils\
-                         lookup_plugins\
-                     
-         scripts\
+                     lookup_plugins\
+         virtual_environment\
+             presets\
+                 local_aws.json    // local presets are populated during build
+                 local_proxmox.json
+                 local_vcenter.json
+                 remote_aws.json    // remote presets need to be populated manually
+                 remote_proxmox.json
+                 remote_vcenter.json
+             files\
+                 keys\
      library\
          images\
+         scripts\
          software\
      scenarios\
          _template\
              configs\
                  computers\
+                     wks-001.json
                  domains\
                  ...
      Build-VirtualEnvironment.ps1
