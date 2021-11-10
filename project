@@ -1,0 +1,77 @@
+ Requirements:
+ - VMware Workstation
+ - PowerCLI
+ 
+ 
+ 
+ 
+ Virtual Environments:
+ - AWS -- https://github.com/localstack/localstack
+ - vSphere -- https://www.vmware.com/products/vsphere.html
+ - Proxmox VE -- https://www.proxmox.com/en/proxmox-ve
+ 
+ 
+ Directory Structure:
+ AVR\
+     _temp\
+         ansible\
+     build\
+         configs\
+             docker\
+             packer\
+                 http\
+                 templates\
+             images.json
+             software.json
+             templates.json
+         scripts\
+         range_template.json
+     deploy\
+         configs\
+             ansible\
+                 inventories\
+                     production\
+                         hosts
+                         group_vars\
+                         host_vars\
+                     staging\
+                         hosts
+                         group_vars\
+                         host_vars\
+                 library\
+                     module_utils\
+                     filter_plugins\
+                 roles\
+                     common\
+                         tasks\
+                         handlers\
+                         templates\
+                         files\
+                         vars\
+                         defaults\
+                         meta\
+                         library\
+                         module_utils\
+                         lookup_plugins\
+                     
+         scripts\
+     library\
+         images\
+         software\
+     scenarios\
+         _template\
+             configs\
+                 computers\
+                 domains\
+                 ...
+     Build-VirtualEnvironment.ps1
+     Deploy-Scenario.ps1
+     
+     
+        
+        
+ 
+ 
+ 
+ 
+ 
