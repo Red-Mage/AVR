@@ -1,8 +1,10 @@
+ 
+ 
+ 
+ 
  Requirements:
  - VMware Workstation
  - PowerCLI
- 
- 
  
  
  Virtual Environments:
@@ -21,6 +23,10 @@
          current_scenario.json
      build\
          configs\
+             presets\
+                 aws.json
+                 proxmox.json
+                 vsphere.json
              images.json
              software.json
              templates.json
@@ -76,12 +82,15 @@
                      wks-001.json
                  domains\
                  ...
-     Build-VirtualEnvironment.ps1
-     Deploy-Scenario.ps1
+     Build-VirtualEnvironment.ps1    // builds local virtual environment
+     Configure-VirtualEnvironment.ps1    // sets up remote virtual environment so scenarios can be deployed
+     Deploy-Scenario.ps1    // deploys a scenario to a specified virtual environment
      
      
         
-        
+Build-VirtualEnvironment.ps1 -VE "vsphere"
+Configure-VirtualEnvironment.ps1 -VE "remote_aws_main"
+Deploy-Scenario.ps1 -VE "local_aws" -Scenario "example"
  
  
  
