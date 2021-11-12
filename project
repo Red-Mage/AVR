@@ -6,41 +6,64 @@
  - 
  
  
- Requirements:
- - VMware Workstation
- - PowerCLI
+VIRTUAL RANGE CONTROLLER COMPONENTS:
+- terraform -- virtual environment management
+- ansible -- host management
+- samba -- share
+- nginx -- web proxy/hosting
+- php -- web
+- gitlab -- devops
+- elastic stack -- monitoring
+-  -- DNS?
+
+
+
+
+
  
  
  Virtual Environments:
  - AWS -- https://github.com/localstack/localstack
  - vSphere -- https://www.vmware.com/products/vsphere.html
  - Proxmox VE -- https://www.proxmox.com/en/proxmox-ve
+ - openstack -- https://www.openstack.org/
  
  
  Directory Structure:
  AVR\
-     _temp\
-         ansible\    // static and generated ansible configs combined during scenario deployment
-         docker\
-         packer\
-         current_environment.json
-         current_scenario.json
-     build\    // files used for virtual environment build
-         configs\
-             presets\
-                 aws.json
-                 proxmox.json
-                 vsphere.json
-             images.json    // paths to images and if they should be uploaded
-             paths.json    // custom root paths for images, software,etc
-             software.json    // software to upload
-             templates.json    // templates to create and product keys
+     _temp\    // temporary files generated during build and deploy
+     build\    // files used for virtual environment and virtual range controller build
          docker\    // docker files for build of virtual range controller
          packer\    // packer files for virtual environment build 
              http\
              templates\
          virtual_machines\
-     deploy\    // files used to deploy scenarios
+     config\    // config files used for build and deploy
+         keys\
+         scenario\
+             current_scenario.json
+         virtual_environment\
+             profiles\    // existing virtual environment configs
+             templates\    // virtual environment config templates
+                 aws.json
+                 proxmox.json
+                 openstack.json
+                 vsphere.json
+             current_environment.json
+         virtual_range_controller\   // files used to configure vrc containers
+             ansible\
+             elastic\
+             gitlab\
+             nginx\
+             php\
+             samba\
+             terraform\
+             vrc_config.json
+         images.json    // paths to images and if they should be uploaded
+         paths.json    // custom root paths for images, software,etc
+         software.json    // software to upload
+         templates.json    // templates to create in virtual environment
+     deploy\    // files used to deploy scenarios (template configs)
           ansible\    // static and template ansible configs (example structure)
              inventories\
                  production\
@@ -66,29 +89,29 @@
                      library\
                      module_utils\
                      lookup_plugins\
-         virtual_environment\
-             presets\
-                 local_aws.json    // local presets are populated during build
-                 local_proxmox.json
-                 local_vcenter.json
-                 remote_aws.json    // remote presets need to be populated manually
-                 remote_proxmox.json
-                 remote_vcenter.json
-             files\
-                 keys\
+         terraform\
      library\  
-         images\
-         scripts\
+         files\    // files not fitting other categories
+         images\    // OS ISOs and other images
+         scripts\    // automated virtual range scripts
          software\
+             chocolatey\
      scenarios\
          _template\
-             configs\
-                 computers\
-                     wks-001.json
-                 domains\
-                 ...
+             ansible\
+                 groups\
+                 roles\
+             computers\
+                 wks-001.json
+             domains\
+             routers\
+             networks\
+             packages\
+             groups\
+             users\
+             ous\
      Build-VirtualEnvironment.ps1    // builds local virtual environment
-     Configure-VirtualEnvironment.ps1    // sets up remote virtual environment so scenarios can be deployed
+     Configure-VirtualEnvironment.ps1    // sets up virtual environment so scenarios can be deployed
      Deploy-Scenario.ps1    // deploys a scenario to a specified virtual environment
      
      
@@ -102,7 +125,7 @@ BUILD DOCKER IMAGE FOR ANSIBLE
 https://docs.ansible.com/ansible-core/devel/installation_guide/intro_installatiohttps://docs.ansible.com/ansible/2.9/installation_guide/intro_installation.html
 https://docs.ansible.com/ansible/2.9/user_guide/windows_winrm.html
 
-TOTO:
+TODO:
 - look up ports to expose
 - additional requirements (python packages)
 
