@@ -69,9 +69,12 @@ VE BUILD FLOW:
              terraform\
              vrc_config.json
          images.json    // paths to images and if they should be uploaded
+         images-local.json    // local version in gitignore with personal keys and paths (used before images.json)
          paths.json    // custom root paths for images, software,etc
+         paths-local.json    // local version in gitignore with personal root paths (used before paths.json)
          software.json    // software to upload
          templates.json    // templates to create in virtual environment
+         templates-local.json    // local version in gitignore with templates to build (used before templates.json)
      deploy\    // files used to deploy scenarios (template configs)
           ansible\    // static and template ansible configs (example structure)
              inventories\
