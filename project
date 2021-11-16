@@ -1,22 +1,31 @@
- 
- TODO:
- - build ansible dockerfile
+  TODO:
+ - build dockerfiles/docker-compose
  - outline ansible common tasks(port from salt)
  - outline virtual environment config structure
- - 
+ - build virtual environment automation scripts
  
  
 VIRTUAL RANGE CONTROLLER COMPONENTS:
+- PhotonOS -- docker host
+- portainer -- container management
 - terraform -- virtual environment management
 - ansible -- host management
 - samba -- share
 - nginx -- web proxy/hosting
 - php -- web
-- gitlab -- devops
+- gitlab -- devops 
 - elastic stack -- monitoring
--  -- DNS?
+- DNSMasq -- local DNS
 
-
+VE BUILD FLOW:
+- get vmware virtual network settings
+- update virtual range settings
+- build virtual range controller
+- build virtualization environment
+- migrate vrc to ve
+- upload images to ve
+- build template VMs in ve
+- 
 
 
 
@@ -96,7 +105,7 @@ VIRTUAL RANGE CONTROLLER COMPONENTS:
          scripts\    // automated virtual range scripts
          software\
              chocolatey\
-     scenarios\
+     scenarios\    // virtual environment independant scenario configs
          _template\
              ansible\
                  groups\
