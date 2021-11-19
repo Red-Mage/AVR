@@ -19,6 +19,7 @@
    - build samba docker-compose
  - outline ansible common tasks(port from salt)
  - outline virtual environment config structure
+ - outline terraform config structure
  - build virtual environment automation scripts
  - build ansible deployment scripts
  - build gitlab upload scripts
@@ -48,6 +49,7 @@ VIRTUAL RANGE CONTROLLER COMPONENTS:
 - gitlab -- devops
 - elastic stack -- monitoring
 - terraform -- virtual environment management
+- packer -- template deployment -- because i already built it...
 - ansible -- host management
 - portainer -- container management
 - samba -- share
@@ -77,25 +79,33 @@ VE BUILD FLOW:
  AVR\
      _temp\    // temporary files generated during build and deploy
      build\    // files used for virtual environment and virtual range controller build
-         docker\    // docker files for build of virtual range controller
+         docker\    // docker and support files for build of virtual range controller
              ansible\
              dnsmasq\
              elastic\
+                 elasticsearch\
+                 kibana\
+                 logstash\
              gitlab\
              mediawiki\
              nginx\
+             packer\
              php\
              portainer\
              samba\
              terraform\
+             .env
+             docker-compose.yml
          packer\    // packer files for virtual environment build 
-             http\
-             templates\
-         virtual_machines\
-     config\    // config files used for build and deploy
-         keys\
+             http\    // autounattend and kickstart files
+             templates\    // packer templates (for packer deployment instead of terraform)
+             esxi.json
+             vrc.json
+         virtual_machines\    // VMs created by packer
+     config\    // config files used for build and deploy scripts
+         keys\    // any static or generated keys needed for scripts 
          scenario\
-             current_scenario.json
+             current_scenario.json    // currently deployed scenario on current environment
          virtual_environment\
              profiles\    // existing virtual environment configs
              templates\    // virtual environment config templates
@@ -103,10 +113,10 @@ VE BUILD FLOW:
                  proxmox.json
                  openstack.json
                  vsphere.json
-             current_environment.json
+             current_environment.json    // last used environment
          virtual_range_controller\   // files used to configure vrc containers
              profiles\    // VRC settings for each configured VE
-             current_controller.json
+             current_controller.json    // VRC settings for last used VE
          images.json    // paths to images and if they should be uploaded
          images-local.json    // local version in gitignore with personal keys and paths (used before images.json)
          paths.json    // custom root paths for images, software,etc
@@ -134,6 +144,7 @@ VE BUILD FLOW:
                      handlers\
                      templates\
                      files\
+                         gpos\    // exported GPOs
                      vars\
                      defaults\
                      meta\
@@ -141,10 +152,10 @@ VE BUILD FLOW:
                      module_utils\
                      lookup_plugins\
          terraform\
-     library\  
-         files\    // files not fitting
+     library\
+         docs\    // support documentation
+         files\    // support files
              gitlab\    // gilab pages to upload
-             gpo\    // exported GPOs
              mediawiki\    // mediawiki pages to upload
          images\    // OS ISOs and other images
          scripts\    // automated virtual range scripts
