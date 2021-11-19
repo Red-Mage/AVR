@@ -7,9 +7,9 @@
      - basic install
      - build AVR address script for dnsmasq config
    - build nginx docker-compose
-     - create site proxy for AVR services/systems
+     - create site proxy config for VRC services
    - build php docker-compose
-     - build splash page
+     - build AVR splash page
    - build gitlab docker-compose
    - build elastic stack docker-compose
      - figure out indexes/queries/dashboards to set up
@@ -20,6 +20,12 @@
  - outline ansible common tasks(port from salt)
  - outline virtual environment config structure
  - build virtual environment automation scripts
+ - build ansible deployment scripts
+ - build gitlab upload scripts
+ - build mediawiki upload scripts
+ - build template scenario
+ - build support functions (upload-image, build-template, etc)
+ - build PowerShell module???
  
  WORKSTATION SYSTEM REQUIREMENTS
  - VMWare Workstation
@@ -38,6 +44,7 @@ VIRTUAL RANGE CONTROLLER COMPONENTS:
 - DNSMasq -- local DNS
 - nginx -- web proxy/hosting
 - php -- web
+- mediawiki - offline code reference
 - gitlab -- devops
 - elastic stack -- monitoring
 - terraform -- virtual environment management
@@ -71,6 +78,16 @@ VE BUILD FLOW:
      _temp\    // temporary files generated during build and deploy
      build\    // files used for virtual environment and virtual range controller build
          docker\    // docker files for build of virtual range controller
+             ansible\
+             dnsmasq\
+             elastic\
+             gitlab\
+             mediawiki\
+             nginx\
+             php\
+             portainer\
+             samba\
+             terraform\
          packer\    // packer files for virtual environment build 
              http\
              templates\
@@ -88,16 +105,8 @@ VE BUILD FLOW:
                  vsphere.json
              current_environment.json
          virtual_range_controller\   // files used to configure vrc containers
-             ansible\
-             dnsmasq\
-             elastic\
-             gitlab\
-             nginx\
-             php\
-             portainer\
-             samba\
-             terraform\
-             vrc_config.json
+             profiles\    // VRC settings for each configured VE
+             current_controller.json
          images.json    // paths to images and if they should be uploaded
          images-local.json    // local version in gitignore with personal keys and paths (used before images.json)
          paths.json    // custom root paths for images, software,etc
@@ -133,26 +142,29 @@ VE BUILD FLOW:
                      lookup_plugins\
          terraform\
      library\  
-         files\    // files not fitting other categories
+         files\    // files not fitting
+             gitlab\    // gilab pages to upload
+             gpo\    // exported GPOs
+             mediawiki\    // mediawiki pages to upload
          images\    // OS ISOs and other images
          scripts\    // automated virtual range scripts
-         software\
+         software\    // software for install to local and remote systems
              chocolatey\
-     scenarios\    // virtual environment independant scenario configs
+     scenarios\    // virtual environment independant scenario configs (JSON files used to generate terraform/ansible configs)
          _template\
              ansible\
-                 groups\
-                 roles\
-             computers\
+                 groups\    // query files to automatically generate ansible groups based on match criteria
+                 roles\    // role definitions that can be appled to groups and individual systems
+             computers\    // computers to be deployed
                  wks-001.json
-             domains\
-             routers\
-             networks\
-             packages\
-             gpo\
-             groups\
-             users\
-             ous\
+             domains\    // domains and subdomains to be created
+             gpos\    // sets of GPOs that can be deployed to domains
+             groups\    // AD groups to be created
+             networks\    // networks configured on VE
+             ous\    // AD OUs to be created
+             packages\    // sets of software that can be applied to ansible groups or individual systems
+             routers\    // routers to deploy (will build automated config scripts for vyos)
+             users\    // AD users to be created
      Build-VirtualEnvironment.ps1    // builds local virtual environment
      Configure-VirtualEnvironment.ps1    // sets up virtual environment so scenarios can be deployed
      Deploy-Scenario.ps1    // deploys a scenario to a specified virtual environment
