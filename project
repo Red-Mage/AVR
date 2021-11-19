@@ -49,7 +49,7 @@ VIRTUAL RANGE CONTROLLER COMPONENTS:
 - gitlab -- devops
 - elastic stack -- monitoring
 - terraform -- virtual environment management
-- packer -- template deployment -- because i already built it...
+- packer -- template deployment -- because i already built it and want to use it for testing purposes...
 - ansible -- host management
 - portainer -- container management
 - samba -- share
@@ -79,7 +79,7 @@ VE BUILD FLOW:
  AVR\
      _temp\    // temporary files generated during build and deploy
      build\    // files used for virtual environment and virtual range controller build
-         docker\    // docker and support files for build of virtual range controller
+         docker\    // docker and support files for build of virtual range controller (copied to _temp and uploaded to VRC)
              ansible\
              dnsmasq\
              elastic\
@@ -97,8 +97,7 @@ VE BUILD FLOW:
              .env
              docker-compose.yml
          packer\    // packer files for virtual environment build 
-             http\    // autounattend and kickstart files
-             templates\    // packer templates (for packer deployment instead of terraform)
+             http\    // preseed and kickstart files for building VEs
              esxi.json
              vrc.json
          virtual_machines\    // VMs created by packer
@@ -124,7 +123,7 @@ VE BUILD FLOW:
          software.json    // software to upload
          templates.json    // templates to create in virtual environment
          templates-local.json    // local version in gitignore with templates to build (used before templates.json)
-     deploy\    // files used to deploy scenarios (template configs)
+     deploy\    // files used to deploy scenarios (template configs, copied to _temp and uploaded to VRC)
           ansible\    // static and template ansible configs (example structure)
              inventories\
                  production\
@@ -151,6 +150,9 @@ VE BUILD FLOW:
                      library\
                      module_utils\
                      lookup_plugins\
+         packer\
+             http\    // autounattend and kickstart files
+             templates\    // packer templates (for packer deployment instead of terraform)
          terraform\
      library\
          docs\    // support documentation
