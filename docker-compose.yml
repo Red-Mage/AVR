@@ -1,4 +1,16 @@
 
+# build order
+# - DNSMasq -- local DNS -- https://thekelleys.org.uk/dnsmasq/docs/dnsmasq-man.html
+# - nginx -- web proxy/hosting
+# - php -- web
+# - gitlab -- devops
+# - elastic stack -- monitoring
+# - terraform -- virtual environment management
+# - ansible -- host management
+# - portainer -- container management
+# - samba -- share
+
+
 
 
 
@@ -9,7 +21,7 @@ web:
   hostname: '$VRC_ADDRESS'
   environment:
     GITLAB_OMNIBUS_CONFIG: |
-      external_url 'http://gitlab.example.com:8929'
+      external_url 'http://gitlab.range.local:8929'
       gitlab_rails['gitlab_shell_ssh_port'] = 2224
   ports:
     - '8929:8929'
