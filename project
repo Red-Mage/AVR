@@ -89,10 +89,12 @@ VE BUILD FLOW:
              current_environment.json
          virtual_range_controller\   // files used to configure vrc containers
              ansible\
+             dnsmasq\
              elastic\
              gitlab\
              nginx\
              php\
+             portainer\
              samba\
              terraform\
              vrc_config.json
@@ -147,6 +149,7 @@ VE BUILD FLOW:
              routers\
              networks\
              packages\
+             gpo\
              groups\
              users\
              ous\
