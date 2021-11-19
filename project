@@ -1,21 +1,49 @@
   TODO:
- - build dockerfiles/docker-compose
+ - make full requirements list
+ - build VRC
+   - rewrite VRC build script
+   - build docker .env script
+   - build dnsmasq docker-compose
+     - basic install
+     - build AVR address script for dnsmasq config
+   - build nginx docker-compose
+     - create site proxy for AVR services/systems
+   - build php docker-compose
+     - build splash page
+   - build gitlab docker-compose
+   - build elastic stack docker-compose
+     - figure out indexes/queries/dashboards to set up
+   - build terraform docker-compose
+   - build ansible docker compose
+   - build portainer docker-compose
+   - build samba docker-compose
  - outline ansible common tasks(port from salt)
  - outline virtual environment config structure
  - build virtual environment automation scripts
  
+ WORKSTATION SYSTEM REQUIREMENTS
+ - VMWare Workstation
+ - PuTTy
+ - git
+ - PowerCLI
+ - 
+ 
+ 
+ 
+ 
+ 
  
 VIRTUAL RANGE CONTROLLER COMPONENTS:
 - PhotonOS -- docker host
-- portainer -- container management
-- terraform -- virtual environment management
-- ansible -- host management
-- samba -- share
+- DNSMasq -- local DNS
 - nginx -- web proxy/hosting
 - php -- web
-- gitlab -- devops 
+- gitlab -- devops
 - elastic stack -- monitoring
-- DNSMasq -- local DNS
+- terraform -- virtual environment management
+- ansible -- host management
+- portainer -- container management
+- samba -- share
 
 VE BUILD FLOW:
 - get vmware virtual network settings
